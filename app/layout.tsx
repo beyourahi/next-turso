@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: PropsWithChildren) => (
     <html lang="en" className={cn("light scroll-smooth", GeistSans.className)}>
-        <body className="antialiased">{children}</body>
+        <body className="flex min-h-[100dvh] flex-col antialiased">{children}</body>
     </html>
 );
 

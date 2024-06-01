@@ -1,11 +1,29 @@
-import Image from "next/image";
-import coolgif from "public/coolgif.gif";
+import { addMessage } from "actions/add-message";
+import { getMessages } from "actions/get-messages";
+import { Button } from "components/ui/button";
+import { Input } from "components/ui/input";
+
+export const runtime = "edge";
 
 const Home = async () => {
+    const messages = await getMessages();
+
     return (
-        <div className="flex h-[100dvh] flex-col items-center justify-center space-y-8 bg-black text-white">
-            <Image src={coolgif} alt="rick roll" className="rounded-3xl" />
-            <h1 className="text-[3vw] font-bold">arryt let&apos;s build something cool 🚀👌🏻</h1>
+        <div className="container flex max-w-2xl flex-1 flex-col items-start justify-center gap-12">
+            <form action={addMessage} className="flex w-full flex-col justify-center gap-4">
+                <Input type="text" name="message" placeholder="Enter Message" />
+                <Button type="submit">Submit</Button>
+            </form>
+
+            <div>
+                <ul className="flex flex-col gap-2">
+                    {messages.map(message => (
+                        <li key={message.id} className="items flex">
+                            {message.message}
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </div>
     );
 };
